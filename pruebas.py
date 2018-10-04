@@ -1,6 +1,6 @@
 import math
 import random
-
+#
 
 class Cluster:
     idProximo = 1
