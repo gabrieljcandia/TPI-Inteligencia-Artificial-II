@@ -90,7 +90,7 @@
                <number>996</number>
               </property>
               <item>
-               <widget class="QRadioButton" name="radioButton_2">
+               <widget class="QRadioButton" name="rbDesdeArch">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -106,10 +106,13 @@
                 <property name="text">
                  <string>Desde Archivo</string>
                 </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="frame_5">
+               <widget class="QFrame" name="frameUbicacion">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -251,7 +254,7 @@
                  </widget>
                 </item>
                 <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_3">
+                 <layout class="QVBoxLayout" name="VLgeneracionAleatoriaDim">
                   <property name="spacing">
                    <number>0</number>
                   </property>
@@ -259,7 +262,10 @@
                    <number>27</number>
                   </property>
                   <item>
-                   <widget class="QRadioButton" name="radioButton_3">
+                   <widget class="QRadioButton" name="rb2D">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -275,10 +281,16 @@
                     <property name="text">
                      <string>2D</string>
                     </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QRadioButton" name="radioButton">
+                   <widget class="QRadioButton" name="rb3D">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -301,7 +313,10 @@
                </layout>
               </item>
               <item>
-               <widget class="QFrame" name="frame_4">
+               <widget class="QFrame" name="frameGeneracionAleatoriaRang">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                   <horstretch>0</horstretch>
@@ -332,10 +347,10 @@
                    <x>10</x>
                    <y>10</y>
                    <width>515</width>
-                   <height>118</height>
+                   <height>128</height>
                   </rect>
                  </property>
-                 <layout class="QVBoxLayout" name="VLgeneracionAleatoria1_2">
+                 <layout class="QVBoxLayout" name="VLgeneracionAleatoriaRang">
                   <property name="rightMargin">
                    <number>0</number>
                   </property>
@@ -349,7 +364,7 @@
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>150</width>
+                      <width>210</width>
                       <height>27</height>
                      </size>
                     </property>
@@ -372,24 +387,24 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>60</width>
+                       <width>200</width>
                        <height>27</height>
                       </rect>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>60</width>
+                       <width>200</width>
                        <height>27</height>
                       </size>
                      </property>
                      <property name="text">
-                      <string>Cantidad</string>
+                      <string>Cantidad Puntos</string>
                      </property>
                     </widget>
-                    <widget class="QSpinBox" name="spinBox">
+                    <widget class="QSpinBox" name="spinCant">
                      <property name="geometry">
                       <rect>
-                       <x>60</x>
+                       <x>120</x>
                        <y>0</y>
                        <width>60</width>
                        <height>27</height>
@@ -400,6 +415,15 @@
                        <width>60</width>
                        <height>27</height>
                       </size>
+                     </property>
+                     <property name="minimum">
+                      <number>2</number>
+                     </property>
+                     <property name="maximum">
+                      <number>100000</number>
+                     </property>
+                     <property name="value">
+                      <number>10</number>
                      </property>
                     </widget>
                    </widget>
@@ -472,12 +496,18 @@
                              </widget>
                             </item>
                             <item>
-                             <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+                             <widget class="QDoubleSpinBox" name="spinXmin">
                               <property name="maximumSize">
                                <size>
-                                <width>60</width>
+                                <width>68</width>
                                 <height>16777215</height>
                                </size>
+                              </property>
+                              <property name="minimum">
+                               <double>-100000.000000000000000</double>
+                              </property>
+                              <property name="maximum">
+                               <double>100000.000000000000000</double>
                               </property>
                              </widget>
                             </item>
@@ -499,12 +529,21 @@
                              </widget>
                             </item>
                             <item>
-                             <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                             <widget class="QDoubleSpinBox" name="spinXmax">
                               <property name="maximumSize">
                                <size>
-                                <width>60</width>
+                                <width>68</width>
                                 <height>16777215</height>
                                </size>
+                              </property>
+                              <property name="minimum">
+                               <double>-100000.000000000000000</double>
+                              </property>
+                              <property name="maximum">
+                               <double>100000.000000000000000</double>
+                              </property>
+                              <property name="value">
+                               <double>5.000000000000000</double>
                               </property>
                              </widget>
                             </item>
@@ -560,12 +599,15 @@
                              </widget>
                             </item>
                             <item>
-                             <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+                             <widget class="QDoubleSpinBox" name="spinYmin">
                               <property name="maximumSize">
                                <size>
-                                <width>60</width>
+                                <width>68</width>
                                 <height>16777215</height>
                                </size>
+                              </property>
+                              <property name="minimum">
+                               <double>-100000.000000000000000</double>
                               </property>
                              </widget>
                             </item>
@@ -587,12 +629,18 @@
                              </widget>
                             </item>
                             <item>
-                             <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+                             <widget class="QDoubleSpinBox" name="spinYmax">
                               <property name="maximumSize">
                                <size>
-                                <width>60</width>
+                                <width>68</width>
                                 <height>16777215</height>
                                </size>
+                              </property>
+                              <property name="maximum">
+                               <double>100000.000000000000000</double>
+                              </property>
+                              <property name="value">
+                               <double>5.000000000000000</double>
                               </property>
                              </widget>
                             </item>
@@ -648,12 +696,18 @@
                              </widget>
                             </item>
                             <item>
-                             <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+                             <widget class="QDoubleSpinBox" name="spinZmin">
                               <property name="maximumSize">
                                <size>
-                                <width>60</width>
+                                <width>68</width>
                                 <height>16777215</height>
                                </size>
+                              </property>
+                              <property name="minimum">
+                               <double>-100000.000000000000000</double>
+                              </property>
+                              <property name="maximum">
+                               <double>100000.000000000000000</double>
                               </property>
                              </widget>
                             </item>
@@ -675,12 +729,21 @@
                              </widget>
                             </item>
                             <item>
-                             <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+                             <widget class="QDoubleSpinBox" name="spinZmax">
                               <property name="maximumSize">
                                <size>
-                                <width>60</width>
+                                <width>68</width>
                                 <height>16777215</height>
                                </size>
+                              </property>
+                              <property name="minimum">
+                               <double>-100000.000000000000000</double>
+                              </property>
+                              <property name="maximum">
+                               <double>100000.000000000000000</double>
+                              </property>
+                              <property name="value">
+                               <double>5.000000000000000</double>
                               </property>
                              </widget>
                             </item>
@@ -755,7 +818,7 @@
              <string>Cantidad Clusters</string>
             </property>
             <property name="checked">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
            <widget class="QSpinBox" name="spinCantClusters">

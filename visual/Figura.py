@@ -34,7 +34,7 @@ class Figura(QDialog):
     def graficar(self, clusters):
         self.figure.clear()
         ax = self.figure.add_subplot(111)
-        for cluster in clusters: #obtiene x,y,z de cada cluster
+        for cluster in clusters:
             x, y = cluster.getPuntosR2()
             ax.scatter(x, y, s=None, color=[cluster.getRGB()])
             if cluster.clusters is not None:

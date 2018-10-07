@@ -67,19 +67,25 @@ class Cluster:
         rgb = [self.getR(), self.getG(), self.getB()]
         return rgb
 
-    def getPuntosR2(self): #modificar para que contemple que clusters sea un array de dos clusters
+    def addCluster(self, cluster):
+        if self.clusters is None:
+            self.clusters = []
+        self.clusters.append(cluster)
+
+    def getPuntosR2(self): #modificar para que contemple que clusters sea un array de dos clusters (terminado)
         x, y = [], []
         x.append(self.getX())
         y.append(self.getY())
 
         if self.clusters is not None:
-            xClusters, yClusters = self.clusters.getPuntosR2()
-            for xi in xClusters:
-                x.append(xi)
-            for yi in yClusters:
-                y.append(yi)
-            #x.append(xClusters)
-            #y.append(yClusters)
+            for cluster in self.clusters:
+                xClusters, yClusters = cluster.getPuntosR2()
+                for xi in xClusters:
+                    x.append(xi)
+                for yi in yClusters:
+                    y.append(yi)
+                #x.append(xClusters)
+                #y.append(yClusters)
 
         return x, y
 

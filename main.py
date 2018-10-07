@@ -26,9 +26,14 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #radio buttons
         self.inicializarRbCriterios()
+        self.inicializarRbOrigen()
         self.rbCantClusters.clicked.connect(self.radioButtonCriteriosChange)
         self.rbElemPorCluster.clicked.connect(self.radioButtonCriteriosChange)
         self.rbOptimizarCal.clicked.connect(self.radioButtonCriteriosChange)
+        self.rbDesdeArch.clicked.connect(self.radioButtonOrigenChange)
+        self.rbGeneracionAleatoria.clicked.connect(self.radioButtonOrigenChange)
+        self.rb2D.clicked.connect(self.radioButtonDimensionChange)
+        self.rb3D.clicked.connect(self.radioButtonDimensionChange)
 
         #excepciones
         old_hook = sys.excepthook
@@ -40,12 +45,26 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
                                    "Exception type: {}".format(t))
         self.old_hook(t, val, tb)
 
+    #funciones radio buttons
     def inicializarRbCriterios(self):
         self.rbCantClusters.setChecked(True)
         self.rbGroupCriterios = QtWidgets.QButtonGroup()
         self.rbGroupCriterios.addButton(self.rbCantClusters)
         self.rbGroupCriterios.addButton(self.rbElemPorCluster)
         self.rbGroupCriterios.addButton(self.rbOptimizarCal)
+
+    def inicializarRbOrigen(self):
+        #origenes
+        self.rbGroupOrigen = QtWidgets.QButtonGroup()
+        self.rbGroupOrigen.addButton(self.rbDesdeArch)
+        self.rbGroupOrigen.addButton(self.rbGeneracionAleatoria)
+        #dimensiones
+        self.rbGroupDim = QtWidgets.QButtonGroup()
+        self.rbGroupDim.addButton(self.rb2D)
+        self.rbGroupDim.addButton(self.rb3D)
+        #por defecto
+        self.rbDesdeArch.setChecked(True)
+        self.rb2D.setChecked(True)
 
     def radioButtonCriteriosChange(self):
         if self.rbCantClusters.isChecked():
@@ -67,6 +86,29 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             self.rbMet2.setEnabled(True)
             print("c")
 
+    def radioButtonOrigenChange(self):
+        if self.rbDesdeArch.isChecked():
+            self.frameUbicacion.setEnabled(True)
+            self.frameGeneracionAleatoriaRang.setEnabled(False)
+            self.rb2D.setEnabled(False)
+            self.rb3D.setEnabled(False)
+            print("a")
+        if self.rbGeneracionAleatoria.isChecked():
+            self.frameUbicacion.setEnabled(False)
+            self.frameGeneracionAleatoriaRang.setEnabled(True)
+            self.rb2D.setEnabled(True)
+            self.rb3D.setEnabled(True)
+            self.radioButtonDimensionChange()
+            print("b")
+
+    def radioButtonDimensionChange(self):
+        if self.rb2D.isChecked():
+            self.spinZmin.setEnabled(False)
+            self.spinZmax.setEnabled(False)
+        if self.rb3D.isChecked():
+            self.spinZmin.setEnabled(True)
+            self.spinZmax.setEnabled(True)
+
     #funciones Visual
     def obtenerUbicacionArch(self):
         Tk().withdraw() #crea una ventana root explicitamente para que el popup de select file no muestre una ventana adicional
@@ -75,11 +117,29 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def extraerDatosArch(self):
         ubicacionArch = self.txtUbicacion.toPlainText()
-        clusters = self.miControladora.leerDatos(self.miControladora, ubicacionArch)
+        clusters = self.miControladora.leerDatosArch(self.miControladora, ubicacionArch)
         return clusters
 
     def generarGraficos(self):
-        clusters = self.extraerDatosArch()
+        if self.rbDesdeArch.isChecked():
+            clusters = self.extraerDatosArch()
+        if self.rbGeneracionAleatoria.isChecked():
+            if self.rb2D.isChecked():
+                clusters = self.miControladora.generarPuntosAleatorios2D(self.miControladora,
+                                                                     self.spinCant.value(),
+                                                                     self.spinXmin.value(),
+                                                                     self.spinXmax.value(),
+                                                                     self.spinYmin.value(),
+                                                                     self.spinYmax.value())
+            if self.rb3D.isChecked():
+                clusters = self.miControladora.generarPuntosAleatorios3D(self.miControladora,
+                                                                     self.spinCant.value(),
+                                                                     self.spinXmin.value(),
+                                                                     self.spinXmax.value(),
+                                                                     self.spinYmin.value(),
+                                                                     self.spinYmax.value(),
+                                                                     self.spinZmin.value(),
+                                                                     self.spinZmax.value())
         figura1.graficar(clusters)
 
 
@@ -89,7 +149,7 @@ if __name__ == "__main__":
     window.setWindowTitle("IA - Clustering Jerárquico")
     window.show()
 
-    figura1 = Figura(window, window.VLayoutGrafico)
+    figura1 = Figura(window, window.VLayoutArbol)
     #figura2 = Figura(window, window.HLayoutGrafico)
     #figura3 = Figura(window, window.HLayoutGrafico)
 
