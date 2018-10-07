@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>731</width>
-    <height>517</height>
+    <height>570</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -203,10 +203,9 @@
                   <string>...</string>
                  </property>
                 </widget>
-                <zorder>txtUbicacion</zorder>
                 <zorder>lblUbicArch</zorder>
                 <zorder>btnSelectFile</zorder>
-                <zorder></zorder>
+                <zorder>txtUbicacion</zorder>
                </widget>
               </item>
              </layout>
@@ -970,7 +969,28 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="VLayoutGrafico"/>
+     <layout class="QHBoxLayout" name="HLresultados">
+      <item>
+       <layout class="QVBoxLayout" name="VLayoutArbol">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Árbol Jerárquico</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="HLgrafico"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_11"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3"/>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
