@@ -149,7 +149,7 @@ if __name__ == "__main__":
     window.setWindowTitle("IA - Clustering Jerárquico")
     window.show()
 
-    figura1 = Figura(window, window.HLgrafico)
+    figura1 = Figura(window, window.VLgraficoArbol)
     #figura2 = Figura(window, window.HLayoutGrafico)
     #figura3 = Figura(window, window.HLayoutGrafico)
 
