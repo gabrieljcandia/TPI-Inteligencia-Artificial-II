@@ -10,6 +10,7 @@ class Figura(QDialog):
     def __init__(self, parent, layout):
         super(QDialog, self).__init__(parent)
 
+
         # a figure instance to plot on
         self.figure = plt.figure()
 
@@ -26,7 +27,7 @@ class Figura(QDialog):
         #self.button.clicked.connect(self.plot)
 
         # set the layout
-        layout.addWidget(self.toolbar)
+        #layout.addWidget(self.toolbar)
         layout.addWidget(self.canvas)
         #layout.addWidget(self.button)
         self.setLayout(layout)

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>731</width>
-    <height>791</height>
+    <height>729</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -772,6 +772,12 @@
     </item>
     <item>
      <widget class="QGroupBox" name="groupBox_2">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>176</height>
+       </size>
+      </property>
       <property name="title">
        <string>Criterio de Generación de Clusters</string>
       </property>
@@ -971,7 +977,7 @@
     <item>
      <layout class="QHBoxLayout" name="HLresultados">
       <item>
-       <layout class="QVBoxLayout" name="VLayoutArbol">
+       <layout class="QVBoxLayout" name="VLayoutArbol" stretch="0,1">
         <item>
          <widget class="QLabel" name="label">
           <property name="sizePolicy">
@@ -1004,7 +1010,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>100</width>
+              <width>278</width>
               <height>84</height>
              </size>
             </property>
@@ -1063,7 +1069,7 @@
               <rect>
                <x>10</x>
                <y>50</y>
-               <width>261</width>
+               <width>264</width>
                <height>24</height>
               </rect>
              </property>
@@ -1205,81 +1211,71 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3"/>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_5">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,1,0,1,0,1">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
         </property>
-        <property name="minimumSize">
-         <size>
-          <width>200</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="title">
-         <string>Métodos</string>
-        </property>
-        <widget class="QWidget" name="verticalLayoutWidget_4">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>20</y>
-           <width>191</width>
-           <height>161</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_12" stretch="1,1,1,1,1">
+        <item>
+         <widget class="QLabel" name="label_16">
+          <property name="text">
+           <string>Single-Link</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="VLgraficoSL">
           <property name="sizeConstraint">
            <enum>QLayout::SetMaximumSize</enum>
           </property>
-          <item>
-           <widget class="QLabel" name="label_16">
-            <property name="text">
-             <string>Single-Link</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_13"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_17">
-            <property name="text">
-             <string>Complete-Link</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_14"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>Average-Link</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
          </layout>
-        </widget>
-        <zorder>label_16</zorder>
-        <zorder>verticalLayoutWidget_4</zorder>
-       </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_17">
+          <property name="text">
+           <string>Complete-Link</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="VLgraficoCL">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetMaximumSize</enum>
+          </property>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_18">
+          <property name="text">
+           <string>Average-Link</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="VLgraficoAL">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetMaximumSize</enum>
+          </property>
+         </layout>
+        </item>
+       </layout>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

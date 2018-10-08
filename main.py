@@ -8,8 +8,10 @@ from tkinter import Tk
 from visual.Figura import Figura
 
 qtCreatorFile = "visual/IGU_Principal.ui" #Nombre del archivo .ui
-
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
+
+qtCreatorFile2 = "visual/frame.ui" #Nombre del archivo .ui
+Ui_Frame, QtBaseClass2 = uic.loadUiType(qtCreatorFile2)
 
 class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -140,6 +142,17 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
                                                                      self.spinYmax.value(),
                                                                      self.spinZmin.value(),
                                                                      self.spinZmax.value())
+
+        #figura1.graficar(clusters)
+        #figura2.graficar(clusters)
+        #figura3.graficar(clusters)
+        #figura4.graficar(clusters)
+        self.frame = QtWidgets.QFrame()
+        self.ui = Ui_Frame()
+        self.ui.setupUi(self.frame)
+        self.frame.show()
+
+        figura1 = Figura(self.ui, self.ui.VLgraficoSL)
         figura1.graficar(clusters)
 
 
@@ -149,7 +162,11 @@ if __name__ == "__main__":
     window.setWindowTitle("IA - Clustering Jerárquico")
     window.show()
 
-    figura1 = Figura(window, window.VLgraficoArbol)
+    #figura1 = Figura(window, window.VLgraficoArbol)
+    #figura2 = Figura(window, window.VLgraficoSL)
+    #figura3 = Figura(window, window.VLgraficoCL)
+    #figura4 = Figura(window, window.VLgraficoAL)
+
     #figura2 = Figura(window, window.HLayoutGrafico)
     #figura3 = Figura(window, window.HLayoutGrafico)
 
