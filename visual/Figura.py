@@ -6,9 +6,8 @@ import math
 
 
 class Figura(QDialog):
-    #def __init__(self, parent=None):
     def __init__(self, parent, layout):
-        super(QDialog, self).__init__(parent)
+        super(Figura, self).__init__(parent=None)
 
 
         # a figure instance to plot on

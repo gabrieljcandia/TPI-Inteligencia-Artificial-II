@@ -154,6 +154,10 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
 
         figura1 = Figura(self.ui, self.ui.VLgraficoSL)
         figura1.graficar(clusters)
+        figura2 = Figura(self.ui, self.ui.VLgraficoCL)
+        figura2.graficar(clusters)
+        figura3 = Figura(self.ui, self.ui.VLgraficoAL)
+        figura3.graficar(clusters)
 
 
 if __name__ == "__main__":
