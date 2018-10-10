@@ -9,7 +9,7 @@ class Cluster:
     B = []
 
     def __init__(self, x, y, z):
-        #self.id = self.obtenerNuevaId()
+        self.id = self.obtenerNuevaId()
         self.x = x
         self.y = y
         self.z = z
@@ -29,8 +29,8 @@ class Cluster:
         return nuevoCol
 
     def obtenerNuevaId(self):
-        nuevaId = self.idProximo
-        self.idProximo = self.idProximo + 1
+        nuevaId = Cluster.idProximo
+        Cluster.idProximo = self.idProximo + 1
         return nuevaId
 
     def setX (self, x):
@@ -71,6 +71,15 @@ class Cluster:
         if self.clusters is None:
             self.clusters = []
         self.clusters.append(cluster)
+
+    def cantPuntos(self): #devuelve el numero de puntos de nivel 0, ingresado por usuario (o autogenerado)
+        cant = 0
+        if self.clusters is not None:
+            for cluster in self.clusters:
+                cant = cant + cluster.cantPuntos()
+        else:
+            cant = cant + 1
+        return cant
 
     def getPuntosR2(self): #modificar para que contemple que clusters sea un array de dos clusters (terminado)
         x, y = [], []
@@ -131,3 +140,82 @@ class Cluster:
     def distanciaEuclidea(self, x, y): #distancia entre 2 puntos
         dist = math.sqrt( (x[0]-x[1])**2 + (y[0]-y[1])**2 )
         return dist
+
+    ########### metodos graficar dendograma #####################
+
+    def getNivel(self, cantPuntos): #devuelve el nivel jerarquico del cluster
+        if self.getId() <= cantPuntos:
+            nivel = 0
+        else:
+            nivel = self.getId() - cantPuntos
+        return nivel
+
+    def getClusterIzq(self): #devuelve el cluster de nivel inmediatamente inferior que posea, de entre todos sus clusters hijos, la menor ID
+        ClIzq = None
+        if self.clusters is not None:
+            for cl in self.clusters:
+                if ClIzq is None or cl.getMenorId() < ClIzq.getMenorId():
+                    ClIzq = cl
+        else:
+            ClIzq = self
+        return ClIzq
+
+    def getClusterDer(self): #devuelve el cluster de nivel inmediatamente inferior que posea, de entre todos sus clusters hijos, la mayor ID
+        ClDer = None
+        if self.clusters is not None:
+            for cl in self.clusters:
+                if ClDer is None or cl.getMayorId() > ClDer.getMayorId():
+                    ClDer = cl
+        else:
+            ClDer = self
+        return ClDer
+
+    def getMenorId(self): #devuelve la menor ID, de entre las IDs de todos los clusters inferiores
+        menor = 999999999
+        if self.clusters is not None:
+            for cl in self.clusters:
+                if cl.getMenorId() < menor:
+                    menor = cl.getMenorId()
+        else:
+            menor = self.getId()
+        return menor
+
+    def getMayorId(self): #devuelve la mayor ID, de entre las IDs de todos los clusters inferiores
+        mayor = 0
+        if self.clusters is not None:
+            for cl in self.clusters:
+                if cl.getMayorId() > mayor:
+                    mayor = cl.getMayorId()
+        else:
+            mayor = self.getId()
+        return mayor
+
+    def getLink(self): #devuelve la consecucion de medias entre los puntos de nivel 0 de cada cluster (devuelve la posicion en X, interseccion horizontal-vertical entre nuevo cluster y uno anterior)
+        if self.clusters is not None:
+            clIzq = self.getClusterIzq()
+            clDer = self.getClusterDer()
+
+            linkIzq = clIzq.getLink()
+            linkDer = clDer.getLink()
+
+            link = (linkIzq + linkDer) / 2
+        else:
+            link = self.id
+        return link
+
+
+
+    #############################################################
+
+
+
+
+
+
+
+
+
+
+
+
+

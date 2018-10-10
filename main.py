@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import QGridLayout, QButtonGroup
 import Controladora
 from tkinter import filedialog
 from tkinter import Tk
+
+from clases.Clases import Cluster
 from visual.Figura import Figura
 
 qtCreatorFile = "visual/IGU_Principal.ui" #Nombre del archivo .ui
@@ -123,7 +125,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         return clusters
 
     def generarGraficos(self):
-        if self.rbDesdeArch.isChecked():
+        '''if self.rbDesdeArch.isChecked():
             clusters = self.extraerDatosArch()
         if self.rbGeneracionAleatoria.isChecked():
             if self.rb2D.isChecked():
@@ -141,23 +143,26 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
                                                                      self.spinYmin.value(),
                                                                      self.spinYmax.value(),
                                                                      self.spinZmin.value(),
-                                                                     self.spinZmax.value())
+                                                                     self.spinZmax.value())'''
 
-        #figura1.graficar(clusters)
-        #figura2.graficar(clusters)
-        #figura3.graficar(clusters)
-        #figura4.graficar(clusters)
         self.frame = QtWidgets.QFrame()
         self.ui = Ui_Frame()
         self.ui.setupUi(self.frame)
         self.frame.show()
 
-        figura1 = Figura(self.ui, self.ui.VLgraficoSL)
-        figura1.graficar(clusters)
-        figura2 = Figura(self.ui, self.ui.VLgraficoCL)
-        figura2.graficar(clusters)
-        figura3 = Figura(self.ui, self.ui.VLgraficoAL)
-        figura3.graficar(clusters)
+        #prueba
+        Cluster.idProximo = 1
+        cluster = self.miControladora.pruebaClustersStaticos(self.miControladora) #para probar el dendograma
+
+        graficoSL = Figura(self.ui, self.ui.VLgraficoSL)
+        graficoSL.graficar(cluster)
+
+        dendograma = Figura(self.ui, self.ui.VLgraficoDendograma)
+        dendograma.graficarDendograma(cluster) #se pasa el cluster de mayor jerarquia
+        #figura2 = Figura(self.ui, self.ui.VLgraficoCL)
+        #figura2.graficar(clusters)
+        #figura3 = Figura(self.ui, self.ui.VLgraficoAL)
+        #figura3.graficar(clusters)
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>716</width>
+    <width>858</width>
     <height>498</height>
    </rect>
   </property>
@@ -38,7 +38,7 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="VLgraficoArbol"/>
+        <layout class="QVBoxLayout" name="VLgraficoDendograma"/>
        </item>
       </layout>
      </item>

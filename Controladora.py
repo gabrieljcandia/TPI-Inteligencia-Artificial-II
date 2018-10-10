@@ -9,6 +9,62 @@ class Controladora:
     def __init__(self):
         self.a = "3"  # borrar esta liena
 
+    def pruebaClustersStaticos(self): #crea una jerarquia de clusters, como si fuera el resultado de uno de los metodos
+        #creacion clusters puntos
+        cl1 = Cluster(1, 4, 0)
+        cl2 = Cluster(2, 5, 0)
+        cl3 = Cluster(2, 4, 0)
+        cl4 = Cluster(3, 4, 0)
+
+        cl5 = Cluster(5, 6, 0)
+        cl6 = Cluster(6, 6, 0)
+        cl7 = Cluster(6, 5, 0)
+
+        cl8 = Cluster(6, 3, 0)
+        cl9 = Cluster(5, 2, 0)
+        cl10 = Cluster(6, 2, 0)
+
+        #creacion clusters agrupadores
+        cl11 = Cluster(0, 0, 0)
+        cl12 = Cluster(0, 0, 0)
+        cl13 = Cluster(0, 0, 0)
+        cl14 = Cluster(0, 0, 0)
+        cl15 = Cluster(0, 0, 0)
+        cl16 = Cluster(0, 0, 0)
+        cl17 = Cluster(0, 0, 0)
+        cl18 = Cluster(0, 0, 0)
+        cl19 = Cluster(0, 0, 0)
+
+        #agrupamiento clusters
+        cl11.addCluster(cl5)
+        cl11.addCluster(cl6)
+
+        cl12.addCluster(cl9)
+        cl12.addCluster(cl10)
+
+        cl13.addCluster(cl3)
+        cl13.addCluster(cl4)
+
+        cl14.addCluster(cl2)
+        cl14.addCluster(cl13)
+
+        cl15.addCluster(cl8)
+        cl15.addCluster(cl12)
+
+        cl16.addCluster(cl7)
+        cl16.addCluster(cl11)
+
+        cl17.addCluster(cl1)
+        cl17.addCluster(cl14)
+
+        cl18.addCluster(cl15)
+        cl18.addCluster(cl16)
+
+        cl19.addCluster(cl17)
+        cl19.addCluster(cl18)
+
+        return cl19
+
     def leerDatosArch(self, dir):
         x = []
         y = []
