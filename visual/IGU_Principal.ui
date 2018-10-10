@@ -400,7 +400,7 @@
                       <string>Cantidad Puntos</string>
                      </property>
                     </widget>
-                    <widget class="QSpinBox" name="spinCant">
+                    <widget class="QSpinBox" name="spinCantPuntos">
                      <property name="geometry">
                       <rect>
                        <x>120</x>
@@ -920,8 +920,6 @@
              <number>100000</number>
             </property>
            </widget>
-           <zorder>spinCantElemPorCluster</zorder>
-           <zorder>rbElemPorCluster</zorder>
           </widget>
          </item>
          <item>

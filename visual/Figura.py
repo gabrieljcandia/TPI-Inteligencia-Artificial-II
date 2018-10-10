@@ -42,31 +42,33 @@ class Figura(QDialog):
         plt.autoscale(enable=True, axis='both', tight=None) #habilita autoscale
         self.canvas.draw()
 
-    def graficarDendograma(self, cluster): #recibe como parametro inicial el cluster de mayor nivel
+    def graficarDendograma(self, cluster, maxClusters=None, maxElemPorCluster=None): #recibe como parametro inicial el cluster de mayor nivel
         self.figure.clear()
         self.ax = self.figure.add_subplot(111)
 
         cantPuntos = cluster.cantPuntos() #devuelve cantidad de puntos original
+        cantClusters = cluster.getId() #devuelve cantidad de clusters total
         if cantPuntos < cluster.getId() and cantPuntos >= 2: #control de errores
-            self.graficarDendogramaCluster(cluster, cantPuntos)
+            self.graficarDendogramaCluster(cluster, cantPuntos, cantClusters, maxClusters, maxElemPorCluster)
 
         plt.autoscale(enable=True, axis='both', tight=None) #habilita autoscale
         self.canvas.draw()
 
-    def graficarDendogramaCluster(self, cluster, cantPuntos):
+    def graficarDendogramaCluster(self, cluster, cantPuntos, cantClusters, maxClusters=None, maxElemPorCluster=None):
         if cluster.clusters is not None:
-            nivel = cluster.getNivel(cantPuntos)
-            clIzq = cluster.getClusterIzq()
-            clDer = cluster.getClusterDer()
-            hIzq = clIzq.getNivel(cantPuntos)
-            hDer = clDer.getNivel(cantPuntos)
-            xIzq = clIzq.getLink()
-            xDer = clDer.getLink()
+            if (maxClusters is None) or (cluster.getId() <= cantClusters - (cantClusters - maxClusters)):
+                nivel = cluster.getNivel(cantPuntos)
+                clIzq = cluster.getClusterIzq()
+                clDer = cluster.getClusterDer()
+                hIzq = clIzq.getNivel(cantPuntos)
+                hDer = clDer.getNivel(cantPuntos)
+                xIzq = clIzq.getLink()
+                xDer = clDer.getLink()
 
-            self.ax.plot([xIzq, xIzq, xDer, xDer],[hIzq, nivel, nivel, hDer], color=cluster.getRGB())
+                self.ax.plot([xIzq, xIzq, xDer, xDer],[hIzq, nivel, nivel, hDer], color=cluster.getRGB())
 
             for cl in cluster.clusters:
-                self.graficarDendogramaCluster(cl, cantPuntos)
+                self.graficarDendogramaCluster(cl, cantPuntos, cantClusters, maxClusters, maxElemPorCluster)
 
     def graficarCirculo(self, cluster):
         centroide = cluster.obtenerCentroide()

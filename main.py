@@ -39,6 +39,11 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         self.rb2D.clicked.connect(self.radioButtonDimensionChange)
         self.rb3D.clicked.connect(self.radioButtonDimensionChange)
 
+        #Spins
+        self.spinCantElemPorCluster.valueChanged.connect(self.controlSpinCantElemPorCluster)
+        self.spinCantPuntos.valueChanged.connect(self.spinCantChanged)
+        self.spinCantClusters.valueChanged.connect(self.controlSpinCantClusters)
+
         #excepciones
         old_hook = sys.excepthook
         sys.excepthook = self.catch_exceptions
@@ -103,6 +108,8 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
             self.rb2D.setEnabled(True)
             self.rb3D.setEnabled(True)
             self.radioButtonDimensionChange()
+            self.controlSpinCantElemPorCluster(self.spinCantElemPorCluster.value())
+            self.controlSpinCantClusters(self.spinCantClusters.value())
             print("b")
 
     def radioButtonDimensionChange(self):
@@ -112,6 +119,21 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.rb3D.isChecked():
             self.spinZmin.setEnabled(True)
             self.spinZmax.setEnabled(True)
+
+    #funciones Spins
+    def controlSpinCantElemPorCluster(self, val):
+        if val > self.spinCantPuntos.value() and self.spinCantPuntos.isEnabled():
+            self.spinCantElemPorCluster.setValue(self.spinCantPuntos.value())
+
+    def controlSpinCantClusters(self, val): #para CantidadClusters
+        if val < self.spinCantPuntos.value() and self.spinCantPuntos.isEnabled():
+            self.spinCantClusters.setValue(self.spinCantPuntos.value())
+        elif (val > self.spinCantPuntos.value() + self.spinCantPuntos.value() - 1) and (self.spinCantPuntos.isEnabled()):
+            self.spinCantClusters.setValue(self.spinCantPuntos.value() + self.spinCantPuntos.value() - 1)
+
+    def spinCantChanged(self, val):
+        self.controlSpinCantElemPorCluster(self.spinCantElemPorCluster.value())
+        self.controlSpinCantClusters(self.spinCantClusters.value())
 
     #funciones Visual
     def obtenerUbicacionArch(self):
@@ -130,14 +152,14 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.rbGeneracionAleatoria.isChecked():
             if self.rb2D.isChecked():
                 clusters = self.miControladora.generarPuntosAleatorios2D(self.miControladora,
-                                                                     self.spinCant.value(),
+                                                                     self.spinCantPuntos.value(),
                                                                      self.spinXmin.value(),
                                                                      self.spinXmax.value(),
                                                                      self.spinYmin.value(),
                                                                      self.spinYmax.value())
             if self.rb3D.isChecked():
                 clusters = self.miControladora.generarPuntosAleatorios3D(self.miControladora,
-                                                                     self.spinCant.value(),
+                                                                     self.spinCantPuntos.value(),
                                                                      self.spinXmin.value(),
                                                                      self.spinXmax.value(),
                                                                      self.spinYmin.value(),
@@ -150,6 +172,8 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         self.ui.setupUi(self.frame)
         self.frame.show()
 
+        self.ui.spinCantClusters.valueChanged.connect(self.editCantClusters)
+
         #prueba
         Cluster.idProximo = 1
         cluster = self.miControladora.pruebaClustersStaticos(self.miControladora) #para probar el dendograma
@@ -157,16 +181,20 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         graficoSL = Figura(self.ui, self.ui.VLgraficoSL)
         graficoSL.graficar(cluster)
 
-        dendograma = Figura(self.ui, self.ui.VLgraficoDendograma)
-        dendograma.graficarDendograma(cluster) #se pasa el cluster de mayor jerarquia
+        self.dendograma = Figura(self.ui, self.ui.VLgraficoDendograma)
+        self.dendograma.graficarDendograma(cluster, self.spinCantClusters.value()) #se pasa el cluster de mayor jerarquia
         #figura2 = Figura(self.ui, self.ui.VLgraficoCL)
         #figura2.graficar(clusters)
         #figura3 = Figura(self.ui, self.ui.VLgraficoAL)
         #figura3.graficar(clusters)
 
+    def editCantClusters(self):
+        Cluster.idProximo = 1
+        cluster = self.miControladora.pruebaClustersStaticos(self.miControladora) #para probar el dendograma
+        self.dendograma.graficarDendograma(cluster, self.ui.spinCantClusters.value())
 
 if __name__ == "__main__":
-    app =  QtWidgets.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     window = MyApp()
     window.setWindowTitle("IA - Clustering Jerárquico")
     window.show()

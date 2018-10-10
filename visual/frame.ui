@@ -74,7 +74,7 @@
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_16">
              <item>
-              <widget class="QRadioButton" name="radioButton">
+              <widget class="QRadioButton" name="rbCantClusters">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -88,12 +88,12 @@
                 </size>
                </property>
                <property name="text">
-                <string>Cantidad clusters</string>
+                <string>Cantidad Clusters</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox">
+              <widget class="QSpinBox" name="spinCantClusters">
                <property name="maximumSize">
                 <size>
                  <width>50</width>
@@ -115,13 +115,13 @@
              <rect>
               <x>10</x>
               <y>50</y>
-              <width>264</width>
+              <width>261</width>
               <height>24</height>
              </rect>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_17">
              <item>
-              <widget class="QRadioButton" name="radioButton_2">
+              <widget class="QRadioButton" name="rbElemPorCluster">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -129,12 +129,12 @@
                 </sizepolicy>
                </property>
                <property name="text">
-                <string>Cantidad elementos por cluster</string>
+                <string>Cantidad Elementos por Cluster</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox_2">
+              <widget class="QSpinBox" name="spinCantElemPorCluster">
                <property name="maximumSize">
                 <size>
                  <width>50</width>
@@ -192,7 +192,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QPlainTextEdit" name="plainTextEdit">
+              <widget class="QPlainTextEdit" name="txtMet1">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -233,7 +233,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QPlainTextEdit" name="plainTextEdit_2">
+              <widget class="QPlainTextEdit" name="txtMet2">
                <property name="enabled">
                 <bool>false</bool>
                </property>
