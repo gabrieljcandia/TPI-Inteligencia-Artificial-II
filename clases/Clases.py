@@ -8,15 +8,19 @@ class Cluster:
     G = []
     B = []
 
-    def __init__(self, x, y, z):
+    def __init__(self, x=None, y=None, z=None): #si "x", "y" o "z" es vacio, les asigna "None"
         self.id = self.obtenerNuevaId()
-        self.x = x
-        self.y = y
-        self.z = z
         self.clusters = None #cluster de menor jerarquia
         self.R = self.obtenerColor(self.R)
         self.G = self.obtenerColor(self.G)
         self.B = self.obtenerColor(self.B)
+        self.x = x
+        self.y = y
+        self.z = z
+        if x is not None and y is not None:
+            self.tieneComponentes = True
+        else:
+            self.tieneComponentes = False
 
     def obtenerColor(self, col):
         salir = False
@@ -81,10 +85,14 @@ class Cluster:
             cant = cant + 1
         return cant
 
+    def hasComponentes(self):
+        return self.tieneComponentes
+
     def getPuntosR2(self): #modificar para que contemple que clusters sea un array de dos clusters (terminado)
         x, y = [], []
-        x.append(self.getX())
-        y.append(self.getY())
+        if self.hasComponentes() is True:
+            x.append(self.getX())
+            y.append(self.getY())
 
         if self.clusters is not None:
             for cluster in self.clusters:

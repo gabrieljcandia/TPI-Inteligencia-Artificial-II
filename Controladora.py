@@ -25,15 +25,15 @@ class Controladora:
         cl10 = Cluster(6, 2, 0)
 
         #creacion clusters agrupadores
-        cl11 = Cluster(0, 0, 0)
-        cl12 = Cluster(0, 0, 0)
-        cl13 = Cluster(0, 0, 0)
-        cl14 = Cluster(0, 0, 0)
-        cl15 = Cluster(0, 0, 0)
-        cl16 = Cluster(0, 0, 0)
-        cl17 = Cluster(0, 0, 0)
-        cl18 = Cluster(0, 0, 0)
-        cl19 = Cluster(0, 0, 0)
+        cl11 = Cluster()
+        cl12 = Cluster()
+        cl13 = Cluster()
+        cl14 = Cluster()
+        cl15 = Cluster()
+        cl16 = Cluster()
+        cl17 = Cluster()
+        cl18 = Cluster()
+        cl19 = Cluster()
 
         #agrupamiento clusters
         cl11.addCluster(cl5)

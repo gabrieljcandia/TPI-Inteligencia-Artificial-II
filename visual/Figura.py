@@ -55,19 +55,15 @@ class Figura(QDialog):
 
     def graficarDendogramaCluster(self, cluster, cantPuntos):
         if cluster.clusters is not None:
-
-            #self.graficarDendogramaCluster(cluster, cantPuntos)
             nivel = cluster.getNivel(cantPuntos)
             clIzq = cluster.getClusterIzq()
             clDer = cluster.getClusterDer()
             hIzq = clIzq.getNivel(cantPuntos)
             hDer = clDer.getNivel(cantPuntos)
-
             xIzq = clIzq.getLink()
             xDer = clDer.getLink()
 
-            #ax.scatter(x, y, s=None, color=[cluster.getRGB()])
-            self.ax.plot([xIzq, xIzq, xDer, xDer],[hIzq, nivel, nivel, hDer])
+            self.ax.plot([xIzq, xIzq, xDer, xDer],[hIzq, nivel, nivel, hDer], color=cluster.getRGB())
 
             for cl in cluster.clusters:
                 self.graficarDendogramaCluster(cl, cantPuntos)
