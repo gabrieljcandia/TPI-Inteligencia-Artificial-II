@@ -7,13 +7,13 @@ class Cluster:
     R = []
     G = []
     B = []
+    clusters = []
 
     def __init__(self, x, y, z):
         #self.id = self.obtenerNuevaId()
         self.x = x
         self.y = y
         self.z = z
-        self.clusters = None #cluster de menor jerarquia
         self.R = self.obtenerColor(self.R)
         self.G = self.obtenerColor(self.G)
         self.B = self.obtenerColor(self.B)
@@ -94,12 +94,30 @@ class Cluster:
     def getClusters(self):
         return self.clusters
 
+    def setClusters(self, c):
+        self.clusters = c
+
+    def agregarCluster(self, c):
+        #clusterAgregar = self.getClusters() + [c]
+        #self.setClusters(clusterAgregar)
+        self.clusters.append(c)
+
     def hasClusters(self): #devuelve True si el cluster agrupa a otros
-        if self.clusters is not None:
+        if (len(self.clusters) > 0):    #Se compara lógicamente de esta forma, ya que no encontré otra forma de preguntar si el arreglo está vacío
             retornar = True
         else:
             retornar = False
         return retornar
+
+    #Método que devuelve los clústers contenidos en los clústers superiores
+    def getClustersContenidos(self):
+        retorno = []
+        if self.hasClusters():
+            for x in self.getClusters():
+                retorno = retorno + [x.getClustersContenidos()]
+        else:
+            retorno = self
+        return retorno
 
     def obtenerCentroide(self):
         x, y = self.getPuntosR2()
@@ -123,5 +141,6 @@ class Cluster:
         return ptoDistante
 
     def distanciaEuclidea(self, x, y): #distancia entre 2 puntos
-        dist = math.sqrt( (x[0]-x[1])**2 + (y[0]-y[1])**2 )
+        #dist = math.sqrt((x[0]-x[1])**2 + (y[0]-y[1])**2)
+        dist = ((self.getX() - x)**2 + (self.getY() - y)**2)
         return dist

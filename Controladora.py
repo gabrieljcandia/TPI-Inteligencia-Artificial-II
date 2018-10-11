@@ -68,22 +68,85 @@ class Controladora:
     def getClusters(self):
         return self.clusters
 
-    def distanciaClusters (self, c1, c2):
-        min = 1000000 #el valor que representa a la mínima distancia entre los clusters
+    def setClusters(self, clustersAgregar):
+        self.clusters = clustersAgregar
 
-        if c1.hasClusters:
-            dist = self.distanciaClusters(c1.getClusters, c2)
-        else:
-            if c2.hasClusters:
-                dist = self.distanciaClusters(c1, c2.getClusters)
-            else:
-                dist = self.distanciaClusters(c1, c2)
-        if dist < min:
-                min = dist
-                dist = 1000000
+    #Agrega el nuevo clúster a la lista de clústers del dominio
+    def agregarClusterSuperior(self, nc):
+        self.setClusters(self.clusters + nc)
 
+    def simple(self):
+        min = 1000000000000000000000000
+        clustersUnirse = [] #va a tener los ids de los clusters a fusionarse
+        nuevoCluster = Cluster(0, 0, 0) #es el nuevo cluster superior que se creará con el algoritmo
+        cn1 = None
+        cn2 = None
+        dist = 0
+        i = 0
+        j = 1
+        while i < len(self.getClusters()):
+            while j < len(self.getClusters()):
+                #Verificación de que los clusters evaluados no pertenecen al mismo cluster superior
+                if (not self.perteneceAlMismoCluster(self.getClusters()[i], self.getClusters()[j])):
+                    #dist = self.getClusters()[i].distanciaEuclidea(self.getClusters()[j].getX(), self.getClusters()[j].getY())
+                    dist = self.distanciaClusters(self.getClusters()[i], self.getClusters()[j])
+                    if (dist < min):
+                        print ("Nueva distancia mínima: ", dist)
+                        print ("Entre los clústers: ", self.getClusters()[i].getCoordenadasR2(),", y " ,self.getClusters()[j].getCoordenadasR2())
+                        min = dist
+                        cn1 = self.getClusters()[i]
+                        cn2 = self.getClusters()[j]
+                j = j + 1
+            i = i + 1
+            j = i + 1
+        if ((cn1 is not None) & (cn2 is not None)):
+            print("El valor del cluster a unir, en la posición 0 es: ", cn1.getCoordenadasR2())
+            print("El valor del cluster a unir, en la posición 1 es: ", cn2.getCoordenadasR2())
+            cs1 = self.devolverSuperior(cn1)
+            print("El valor de cs1, 1, es: ", cs1)
+            #nuevoCluster.agregarCluster(cs)
+            #nuevoCluster.setClusters(cs1)
+            cs2 = self.devolverSuperior(cn2)
+            #nuevoCluster.agregarCluster(cs1)
+            nuevoCluster.setClusters([cs1, cs2])
 
-        dist = c1.distanciaEuclidea(c2.getX(), c2.getY())
+            self.agregarClusterSuperior(nuevoCluster)
+
+    def devolverSuperior(self, c):
+        retornar = c
+        longitud = 0
+        for x in self.getClusters():
+            cluster = x.getClustersContenidos()
+            if ((c in cluster) & (len(cluster) > longitud)):
+                min = len(cluster)
+                retornar = x
+        return retornar
+
+    def perteneceAlMismoCluster(self, c1, c2):
+        retorno = False
+        for x in self.getClusters(): #Recorro los clusters que contiene el dominio
+            if x.hasClusters():
+                cAux = x.getClustersContenidos() #Traigo todos los elementos que posee x
+
+                if ((c1 in cAux) & (c2 in cAux)):
+                    return True
+        #end for
+        return retorno
+
+    def distanciaClusters(self, cluster1, cluster2):
+        #dist = cluster1.distanciaEuclidea(cluster2.getX(), cluster2.getY())
+        retorno = 10000000
+        c1 = cluster1.getClustersContenidos()
+        c2 = cluster2.getClustersContenidos()
+
+        for x in c1:
+            for y in c2:
+                dist = x.distanciaEuclidea(y.getX(), y.getY())
+                if dist < retorno:
+                    retorno = dist
+
+        return retorno
+
 
 
 
